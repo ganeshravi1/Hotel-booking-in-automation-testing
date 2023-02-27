@@ -1,0 +1,106 @@
+package org.tcs;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class sample {
+	static WebDriver driver;
+	@BeforeClass
+	public static void test01() {
+WebDriverManager.chromedriver().setup();
+ driver =new ChromeDriver();
+ driver.get("https://adactinhotelapp.com/");
+
+	}
+	@AfterClass
+	public static void test02() throws InterruptedException {
+		Thread.sleep(9000);
+		WebElement D = driver.findElement(By.id("order_no"));
+		String r = D.getAttribute("Value");
+		System.out.println(r);
+		
+
+	}
+@Before
+public void test03() throws AWTException  {
+	  WebElement name = driver.findElement(By.id("username"));
+	  name.sendKeys("ganeshravi");
+	  
+	  WebElement pass = driver.findElement(By.id("password"));
+	  pass.sendKeys("ganeshravi");
+	  
+	 WebElement login = driver.findElement(By.id("login"));
+	 login.click();
+}
+@After
+public void test04() throws IOException, AWTException {
+	driver.findElement(By.id("radiobutton_0")).click();
+	driver.findElement(By.id("continue")).click();
+	driver.findElement(By.id("first_name")).sendKeys("ganesh");
+	driver.findElement(By.id("last_name")).sendKeys("ravi");
+	driver.findElement(By.id("address")).sendKeys("59/d,thillai ,vijay");
+	driver.findElement(By.id("cc_num")).sendKeys("1238984793442345");
+	Robot m=new Robot();
+	m.keyPress(KeyEvent.VK_TAB);
+	m.keyRelease(KeyEvent.VK_TAB);
+	m.keyPress(KeyEvent.VK_DOWN);
+	m.keyRelease(KeyEvent.VK_DOWN);
+	m.keyPress(KeyEvent.VK_TAB);
+	m.keyRelease(KeyEvent.VK_TAB);
+	m.keyPress(KeyEvent.VK_DOWN);
+	m.keyRelease(KeyEvent.VK_DOWN);
+	WebElement d = driver.findElement(By.id("cc_exp_month"));
+	Select b=new Select(d);
+	b.selectByVisibleText("December");
+	m.keyPress(KeyEvent.VK_TAB);
+	m.keyRelease(KeyEvent.VK_TAB);
+	WebElement dfd = driver.findElement(By.id("cc_exp_year"));
+	Select n=new Select(dfd);
+	n.selectByVisibleText("2022");
+	m.keyPress(KeyEvent.VK_TAB);
+	m.keyRelease(KeyEvent.VK_TAB);
+	driver.findElement(By.id("cc_cvv")).sendKeys("345");
+	driver.findElement(By.id("book_now")).click();
+	
+}
+	@Test
+	public void test05() throws AWTException {
+		WebElement v = driver.findElement(By.id("location"));
+		
+		Select b=new Select(v);
+		b.selectByVisibleText("Adelaide");
+		Robot n=new Robot();
+		n.keyPress(KeyEvent.VK_TAB);
+		n.keyRelease(KeyEvent.VK_TAB);
+		n.keyPress(KeyEvent.VK_DOWN);
+		n.keyRelease(KeyEvent.VK_DOWN);
+		n.keyPress(KeyEvent.VK_TAB);
+		n.keyRelease(KeyEvent.VK_TAB);
+		n.keyPress(KeyEvent.VK_DOWN);
+		n.keyRelease(KeyEvent.VK_DOWN);
+		driver.findElement(By.id("Submit")).click();
+		
+
+	}
+	
+}
